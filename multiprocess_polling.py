@@ -8,7 +8,7 @@ NUM_GPUS = 4
 
 prompts = [
     f"Write me a story about why {i} is your favourite number.\n\n{i} is my favourite number because "
-    for i in range(100)
+    for i in range(10000)
 ]
 sampling_params = SamplingParams(temperature=0.0, max_tokens=5)
 model_name = "mistralai/Mistral-7b-instruct-v0.2"
