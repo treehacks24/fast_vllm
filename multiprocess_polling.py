@@ -20,7 +20,7 @@ def run_inference_one_gpu(gpu_id, prompt_list, model_name, sampling_params):
     results = []
     while True:       
         full_list = requests.request('GET', 'http://34.31.37.216/llminference', params={'results': results}).json()
-        my_list = split_list_i(full_list, NUM_GPUS, gpu_id)
+        my_list = split_list(full_list, NUM_GPUS)[gpu_id]
         results = llm.generate(prompt_list, sampling_params)
         time.sleep(.01)
 
@@ -28,8 +28,6 @@ def run_inference_one_gpu(gpu_id, prompt_list, model_name, sampling_params):
 # Splits a list into roughly equally sized pieces
 # split_list(["a", "b", "c", "d", "e", "f", "g"], 3) -> [['a', 'b'], ['c', 'd'], ['e', 'f', 'g']]
 split_list = lambda l, n: [l[i * len(l) // n : (i + 1) * len(l) // n] for i in range(n)]
-
-split_list_i = lambda l, n, z: [l[i * len(l) // n : (i + 1) * len(l) // n] for i in range(n)][z]
 
 
 def run_inference_multi_gpu(model_name, prompts, sampling_params):
