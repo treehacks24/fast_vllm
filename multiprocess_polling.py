@@ -35,7 +35,6 @@ split_list = lambda l, n: [l[i * len(l) // n : (i + 1) * len(l) // n] for i in r
 
 def run_inference_multi_gpu(model_name, prompts, sampling_params):
     split_prompts = split_list(prompts, NUM_GPUS)
-    breakpoint()
     inputs = [(i, p, model_name, sampling_params) for i, p in enumerate(split_prompts)]
 
     with multiprocessing.Pool(processes=NUM_GPUS) as pool:
