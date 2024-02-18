@@ -25,7 +25,7 @@ def run_inference_one_gpu(gpu_id, prompt_list, model_name, sampling_params):
             results = llm.generate(my_list, sampling_params)
         else:
             results = []
-        time.sleep(.01)
+        time.sleep(1)
 
 
 # Splits a list into roughly equally sized pieces
