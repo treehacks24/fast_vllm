@@ -11,7 +11,7 @@ prompts = [
     for i in range(100)
 ]
 sampling_params = SamplingParams(temperature=0.0, max_tokens=5)
-model_name = "mistralai/Mistral-7B-v0.2"
+model_name = "mistralai/Mistral-7b-instruct-v0.2"
 
 def run_inference_one_gpu(gpu_id, prompt_list, model_name, sampling_params):
     os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu_id)
