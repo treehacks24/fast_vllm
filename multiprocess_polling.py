@@ -19,8 +19,9 @@ def run_inference_one_gpu(gpu_id, prompt_list, model_name, sampling_params):
     llm = LLM(model=model_name)
     results = []
     while True:       
-        full_list = requests.request('GET', 'http://34.31.37.216/llminference', params={'results': results}).json()
+        full_list = requests.request('GET', 'http://34.31.37.216/llminference', params={'results': str(results)}).json()
         if len(full_list) != 0:
+            
             my_list = split_list(full_list, NUM_GPUS)[gpu_id]
             results = llm.generate(prompt_list, sampling_params)
         else:
