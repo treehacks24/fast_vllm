@@ -25,10 +25,10 @@ def run_inference_one_gpu(gpu_id, prompt_list, model_name, sampling_params):
         ).json()
         if len(full_list) != 0:            
             my_list = split_list(full_list, NUM_GPUS)[gpu_id]
-            results = sum([[k.text for k in o.outputs] for o in llm.generate(my_list, sampling_params)], [])
+            results = [o.outputs[0].text for o in llm.generate(my_list, sampling_params)]
         else:
             results = []
-        time.sleep(1)
+        time.sleep(.01)
 
 
 # Splits a list into roughly equally sized pieces
