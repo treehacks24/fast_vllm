@@ -14,21 +14,24 @@ prompts = [
 sampling_params = SamplingParams(temperature=0.0, max_tokens=5)
 model_name = "mistralai/Mistral-7b-instruct-v0.2"
 
+
 def run_inference_one_gpu(gpu_id, prompt_list, model_name, sampling_params):
     os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu_id)
     llm = LLM(model=model_name)
     results = []
-    while True:       
+    while True:
         full_list = requests.post(
             "http://34.31.37.216/llminference",
-            json={"results": results, "gpu_id": gpu_id},
+            json={"results": str(results), "gpu_id": gpu_id},
         ).json()
-        if len(full_list) != 0:            
+        if len(full_list) != 0:
             my_list = split_list(full_list, NUM_GPUS)[gpu_id]
-            results = [o.outputs[0].text for o in llm.generate(my_list, sampling_params)]
+            results = [
+                o.outputs[0].text for o in llm.generate(my_list, sampling_params)
+            ]
         else:
             results = []
-        time.sleep(.01)
+        time.sleep(0.01)
 
 
 # Splits a list into roughly equally sized pieces
