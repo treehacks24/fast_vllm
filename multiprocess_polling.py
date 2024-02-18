@@ -29,7 +29,7 @@ def run_inference_one_gpu(gpu_id, prompt_list, model_name, sampling_params):
 # split_list(["a", "b", "c", "d", "e", "f", "g"], 3) -> [['a', 'b'], ['c', 'd'], ['e', 'f', 'g']]
 split_list = lambda l, n: [l[i * len(l) // n : (i + 1) * len(l) // n] for i in range(n)]
 
-split_list_i = lambda l, n, i: [l[i * len(l) // n : (i + 1) * len(l) // n] for i in range(n)][i]
+split_list_i = lambda l, n, z: [l[i * len(l) // n : (i + 1) * len(l) // n] for i in range(n)][z]
 
 
 def run_inference_multi_gpu(model_name, prompts, sampling_params):
